@@ -1,0 +1,25 @@
+// src/config/db.js
+import sql from 'mssql';
+import dotenv from 'dotenv';
+
+dotenv.config();   // <-- asegúrate de ejecutarlo ANTES de usar process.env
+
+const config = {
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  server: process.env.DB_HOST,   // <-- debe ser string no undefined
+  port: Number(process.env.DB_PORT || 1433),
+  database: process.env.DB_NAME,
+  options: {
+    encrypt: process.env.NODE_ENV !== 'development',
+    trustServerCertificate: process.env.NODE_ENV === 'development'
+  },
+  pool: { max: 10, min: 0 }
+};
+
+export let pool;
+
+export async function connectDB() {
+  pool = await sql.connect(config);
+  console.log('✅ SQL Server conectado');
+}
