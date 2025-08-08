@@ -9,7 +9,8 @@ import authRoutes from './routes/auth.routes.js';
 import { errorHandler } from './middlewares/error.js';
 import empresaRoutes from './routes/empresa.routes.js';
 import empleadoRoutes from './routes/empleado.routes.js';
-
+import maestroRoutes from './routes/maestro.routes.js';
+import productoRoutes from './routes/producto.routes.js';
 
 dotenv.config();
 await connectDB();                 // conecta SQL Server
@@ -32,12 +33,17 @@ app.use(limiter);
 
 // Rutas
 app.use('/api/auth', authRoutes);
-app.use('/api/empresas', empresaRoutes);
+app.use('/api/admin/empresas', empresaRoutes);
 app.use('/api/admin/empleados', empleadoRoutes);
+app.use('/api/admin', maestroRoutes);
+app.use('/api/admin/productos', productoRoutes);
 // app.get('/api/empresas/ping', (_req, res) => {
 //   console.log('>>> /api/empresas/ping fue llamado');
 //   res.json({ ping: 'ok' });
 // });
+
+
+
 // Health-check
 app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
 

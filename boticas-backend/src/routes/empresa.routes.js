@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
-import { crearEmpresa } from '../controllers/empresa.controller.js';
+import { crearEmpresa, editarEmpresa, eliminarEmpresa,toggleEmpresa } from '../controllers/empresa.controller.js';
 import { validar } from '../utils/validar.js';
 import { autenticar } from '../middlewares/auth.js';
 
@@ -16,6 +16,37 @@ router.post(
     validar
   ],
   crearEmpresa
+);
+router.put(
+  '/:id',
+  autenticar,
+  [
+    body('razonSocial').optional().notEmpty(),
+    body('rubro').optional().notEmpty(),
+    body('correo').optional().isEmail(),
+    validar
+  ],
+  editarEmpresa
+);
+
+router.patch(
+  '/:id/disable',
+  autenticar,
+  [body('activo').isBoolean(), validar],
+  toggleEmpresa
+);
+
+router.patch(
+  '/:id/enable',
+  autenticar,
+  [body('activo').isBoolean(), validar],
+  toggleEmpresa
+);
+
+router.delete(
+  '/:id',
+  autenticar,
+  eliminarEmpresa
 );
 
 
