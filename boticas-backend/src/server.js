@@ -13,6 +13,9 @@ import maestroRoutes from './routes/maestro.routes.js';
 import productoRoutes from './routes/producto.routes.js';
 import loteRoutes from './routes/lote.routes.js';
 import compraRoutes from './routes/compra.routes.js';
+import ventaRoutes from './routes/venta.routes.js';
+import clienteRoutes from './routes/cliente.routes.js';
+import proveedorRoutes from './routes/proveedor.routes.js';
 
 dotenv.config();
 await connectDB();                 // conecta SQL Server
@@ -41,6 +44,9 @@ app.use('/api/admin', maestroRoutes);
 app.use('/api/admin/productos', productoRoutes);
 app.use('/api/admin/lotes', loteRoutes);
 app.use('/api/admin/compras', compraRoutes);
+app.use('/api/admin/ventas', ventaRoutes);
+app.use('/api/admin/proveedores', proveedorRoutes);
+app.use('/api/admin/clientes',    clienteRoutes);
 // app.get('/api/empresas/ping', (_req, res) => {
 //   console.log('>>> /api/empresas/ping fue llamado');
 //   res.json({ ping: 'ok' });
