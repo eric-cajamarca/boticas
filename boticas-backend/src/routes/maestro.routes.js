@@ -42,4 +42,26 @@ router.post('/vias',          autenticar, [body('c').notEmpty(), body('d').notEm
 router.put('/vias/:id',       autenticar, [body('c').optional().notEmpty()], validar, C.editarVia);
 router.delete('/vias/:id',    autenticar, C.desactVia);
 
+
+/* Ubicaciones */
+router.get('/ubicaciones',        autenticar, C.listarUbicaciones);
+router.post('/ubicaciones',       autenticar, [
+  body('codigo').isLength({ min: 1, max: 10 }),
+  body('descripcion').notEmpty(),
+  body('idEmpresa').isInt(),
+  validar
+], C.crearUbicacion);
+
+router.put('/ubicaciones/:id',    autenticar, [
+  body('codigo').optional().isLength({ min: 1, max: 10 }),
+  body('descripcion').optional().notEmpty(),
+  body('idEmpresa').optional().isInt(),
+  validar
+], C.editarUbicacion);
+
+router.delete('/ubicaciones/:id', autenticar, C.desactUbicacion);
+
+
+/* ---------- EXPORTS ---------- */
+
 export default router;

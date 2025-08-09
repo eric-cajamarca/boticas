@@ -312,3 +312,48 @@ export const desactVia = async (req, res, next) => {
     .query("DELETE FROM ViaAdministracion WHERE idVia=@id");
   res.json({ msg: "Vía eliminada" });
 };
+
+/* ---------- UBICACIONES ---------- */
+export const listarUbicaciones = async (_req, res, next) => {
+  try {
+    const r = await pool.query('SELECT * FROM Ubicaciones');
+    res.json(r.recordset);
+  } catch (e) { next(e); }
+};
+
+export const crearUbicacion = async (req, res, next) => {
+  const { codigo, descripcion, idEmpresa } = req.body;
+  try {
+    await pool.request()
+      .input('c', sql.VarChar(10), codigo)
+      .input('d', sql.VarChar(50), descripcion)
+      .input('e', sql.Int, idEmpresa)
+      .query(`INSERT INTO Ubicaciones (Codigo, Descripcion, idEmpresa)
+              OUTPUT INSERTED.idUbicacion
+              VALUES (@c, @d, @e)`);
+    res.status(201).json({ message: 'Ubicación creada' });
+  } catch (err) {
+    if (err.number === 2627) { err.status = 409; err.message = 'Código duplicado'; }
+    next(err);
+  }
+};
+
+export const editarUbicacion = async (req, res, next) => {
+  const id = Number(req.params.id);
+  const { codigo, descripcion, idEmpresa } = req.body;
+  await pool.request()
+    .input('id', sql.Int, id)
+    .input('c', sql.VarChar(10), codigo)
+    .input('d', sql.VarChar(50), descripcion)
+    .input('e', sql.Int, idEmpresa)
+    .query(`UPDATE Ubicaciones
+            SET Codigo = @c, Descripcion = @d, idEmpresa = @e
+            WHERE idUbicacion = @id`);
+  res.json({ message: 'Ubicación actualizada' });
+};
+
+export const desactUbicacion = async (req, res, next) => {
+  const id = Number(req.params.id);
+  await pool.request().input('id', sql.Int, id).query('DELETE FROM Ubicaciones WHERE idUbicacion = @id');
+  res.json({ message: 'Ubicación eliminada' });
+};
