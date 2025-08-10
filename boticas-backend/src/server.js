@@ -16,6 +16,7 @@ import compraRoutes from './routes/compra.routes.js';
 import ventaRoutes from './routes/venta.routes.js';
 import clienteRoutes from './routes/cliente.routes.js';
 import proveedorRoutes from './routes/proveedor.routes.js';
+import reportesRoutes  from './routes/reportes.routes.js';
 
 dotenv.config();
 await connectDB();                 // conecta SQL Server
@@ -47,6 +48,7 @@ app.use('/api/admin/compras', compraRoutes);
 app.use('/api/admin/ventas', ventaRoutes);
 app.use('/api/admin/proveedores', proveedorRoutes);
 app.use('/api/admin/clientes',    clienteRoutes);
+app.use('/api/reports', reportesRoutes);
 // app.get('/api/empresas/ping', (_req, res) => {
 //   console.log('>>> /api/empresas/ping fue llamado');
 //   res.json({ ping: 'ok' });

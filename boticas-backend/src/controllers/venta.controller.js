@@ -97,6 +97,36 @@ export const crearVenta = async (req, res, next) => {
           SELECT SCOPE_IDENTITY() AS idVenta`);
 
     const idVenta = venta.recordset[0].idVenta;
+    const serieNumero = `${serie}-${numActual}`;
+
+    //crear cuentas por cobrar
+      // Dentro de crearVenta
+      if (idCondicionPago !== 1) {
+        // calcular fechaVencimiento igual que arriba
+        const dias = await tx.request()
+        .input('idCP', sql.Int, idCondicionPago)
+        .query('SELECT DiasCredito FROM CondicionesPago WHERE idCondicionPago = @idCP');
+        const diasCredito = dias.recordset[0].DiasCredito;
+        const fechaVencimiento = new Date(fechaEmision);
+        fechaVencimiento.setDate(fechaVencimiento.getDate() + diasCredito);
+
+        
+        await tx.request()
+          .input('idE', sql.Int, idEmpresa)
+          .input('idVenta', sql.Int, idVenta)
+          .input('numLetra', sql.VarChar(20), serieNumero)
+          .input('fE', sql.Date, fechaEmision) // ← declarada
+          .input('fv', sql.Date, fechaVencimiento)
+          .input('tot', sql.Money, total)
+          .input('idMda', sql.Int, idMoneda)
+          .input('tc', sql.Decimal(10, 3), tipoCambio)
+          .input('idUsu', sql.Int, idUsu)
+          .query(`INSERT INTO CuentasPorCobrar
+                  (idEmpresa, idVenta, NumeroLetra, FechaEmision, FechaVencimiento,
+                  MontoTotal, SaldoActual, idMoneda, tipoCambio, Estado, idUsuario)
+                  VALUES (@idE, @idVenta, @numLetra, @fE, @fv, @tot, @tot, @idMda, @tc,'Pendiente', @idUsu)`);
+      }
+
 
     /* 4. Detalle + Inventario (salidas) */
     for (let i = 0; i < detalle.length; i++) {
@@ -131,6 +161,9 @@ export const crearVenta = async (req, res, next) => {
                  Observacion, TipoOrigen, idOrigen)
                 VALUES (@idP, @idL, 'O', @cant, @idU, GETDATE(), @idUsu,
                         'Venta emitida', 'VENTA', @idV)`);
+
+
+      
     }
 
     await tx.commit();

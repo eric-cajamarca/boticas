@@ -26,6 +26,7 @@ export const crearCompra = async (req, res, next) => {
     fechaVencimiento,
     idProveedor,
     idMoneda,
+    idCondicionPago,
     tipoCambio,
     subTotal,
     descuentoGlobal = 0,
@@ -62,15 +63,45 @@ export const crearCompra = async (req, res, next) => {
       .input('tot', sql.Money, total)
       .input('obs', sql.VarChar(200), observaciones)
       .input('idUsu', sql.Int, idUsu)
+      .input('idCp', sql.Int, idCondicionPago) // Condición de pago por defecto (Contado)
       .query(`INSERT INTO Compras
               (idEmpresa, TipoDocumento, Serie, Numero, FechaEmision, FechaVencimiento,
                idProveedor, idMoneda, TipoCambio, SubTotal, DescuentoGlobal, Igv, isc,
-               OtrosCargos, Total, Estado, Comentarios, FechaCreacion, idUsuario)
+               OtrosCargos, Total, Estado, Comentarios, FechaCreacion, idUsuario, idCondicionPago)
               OUTPUT INSERTED.idCompra
               VALUES (@idE, @td, @s, @n, @fe, @fv, @idP, @idM, @tc, @st, @dg,
-                      @igv, @isc, @oc, @tot, 'Pendiente', @obs, GETDATE(), @idUsu)`);
+                      @igv, @isc, @oc, @tot, 'Pendiente', @obs, GETDATE(), @idUsu, @idCp)`);
 
     const idCompra = compra.recordset[0].idCompra;
+    const serieNumero = `${serie}-${numero}`;
+
+    // crear cuentas por cobrar
+      // Después de insertar la compra
+      if (idCondicionPago !== 1) { // 1 = Contado
+        const dias = await tx.request()
+          .input('idCP', sql.Int, idCondicionPago)
+          .query('SELECT DiasCredito FROM CondicionesPago WHERE idCondicionPago = @idCP');
+        console.log('Dias de credito:', dias.recordset[0]);
+        const diasCredito = dias.recordset[0].DiasCredito;
+        const fechaVencimiento = new Date(fechaEmision);
+        fechaVencimiento.setDate(fechaVencimiento.getDate() + diasCredito);
+
+        await tx.request()
+          .input('idE', sql.Int, idEmpresa)
+          .input('idCompra', sql.Int, idCompra)
+          .input('numLetra', sql.VarChar(20), serieNumero)
+          .input('fechaEmision', sql.Date, fechaEmision) // ← declarada
+          .input('fv', sql.Date, fechaVencimiento)
+          .input('tot', sql.Money, total)
+          .input('idMda', sql.Int, idMoneda)
+          .input('tc', sql.Decimal(10, 3), tipoCambio)
+          .input('idUsu', sql.Int, idUsu)
+          .query(`INSERT INTO CuentasPorPagar
+                  (idEmpresa, idCompra, numeroLetra, FechaEmision, FechaVencimiento,
+                  MontoTotal, SaldoActual, idMoneda, tipoCambio, Estado, idUsuario)
+                  VALUES (@idE, @idCompra, @numLetra ,@fechaEmision, @fv, @tot, @tot, @idMda, @tc,'Pendiente', @idUsu)`);
+      }
+
 
     // 2. Detalle + Lotes + Inventario
     for (let i = 0; i < detalle.length; i++) {
@@ -78,11 +109,9 @@ export const crearCompra = async (req, res, next) => {
             idProducto, codigo, nombre, descripcion,
             idCategoria, idPresentacion, idMarca, idLaboratorio, idPrincipio, idVia,
             precioUnitario, precioVenta, concentracion, forma,
-            cantidad, descuento, igv, isc, total, numeroLote, fechaVencimiento, idUbicacion
+            cantidad, descuento, igv, isc, total, numeroLote, fechaVencimiento, idUbicacion, idCondicionPago
         } = detalle[i];
-    //   const { idProducto, cantidad, precioUnitario,
-    //      descuento, igv, isc, total, numeroLote,
-    //      fechaVencimiento, idUbicacion } = detalle[i];
+ 
 
     let idProd = idProducto;
    
@@ -171,6 +200,10 @@ export const crearCompra = async (req, res, next) => {
                  Observacion, TipoOrigen, idOrigen)
                 VALUES (@idP, @idL, 'I', @cant, @idU, GETDATE(), @idUsu,
                         'Ingreso por compra', 'COMPRA', @idO)`);
+
+      
+
+
     }
 
     await tx.commit();
