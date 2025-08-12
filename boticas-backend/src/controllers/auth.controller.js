@@ -4,11 +4,13 @@ import sql from 'mssql';
 import bcrypt from 'bcrypt';
 import { pool } from '../config/db.js';
 import jwt from 'jsonwebtoken';
+import { hashPassword } from '../utils/hash.js';
 
 export async function registro(req, res, next) {
   try {
     const { email, password } = req.body;
-    const hashed = await bcrypt.hash(password, 10);
+    const hashed = await hashPassword(password);
+    // const hashed = await bcrypt.hash(password, 10);
 
     await pool.request()
       .input('email', email)
@@ -34,9 +36,13 @@ export async function loginSuper(req, res, next) {
       .query('SELECT id, password_hash FROM superUser WHERE email = @email');
 
     const user = result.recordset[0];
-    if (!user || !(await bcrypt.compare(password, user.password_hash))) {
-      return res.status(401).json({ message: 'Credenciales inválidas' });
+
+    if (!user || !(await comparePassword(password, user.password_hash))) {
+    return res.status(401).json({ message: 'Credenciales inválidas' });
     }
+    // if (!user || !(await bcrypt.compare(password, user.password_hash))) {
+    //   return res.status(401).json({ message: 'Credenciales inválidas' });
+    // }
 
     const token = jwt.sign(
       { id: user.id, email, rol: 'admin' },
@@ -115,4 +121,6 @@ export async function crearCuenta(req, res, next) {
     await transaction.rollback();
     next(err);
   }
+
+  
 }

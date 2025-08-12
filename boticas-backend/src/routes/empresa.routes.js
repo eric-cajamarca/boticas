@@ -3,6 +3,8 @@ import { body } from 'express-validator';
 import { crearEmpresa, editarEmpresa, eliminarEmpresa,toggleEmpresa } from '../controllers/empresa.controller.js';
 import { validar } from '../utils/validar.js';
 import { autenticar } from '../middlewares/auth.js';
+import { empresaSchema } from '../validators/esquemas.js';
+import { validarJoi } from '../middlewares/validarJoi.js';
 
 const router = Router();
 
@@ -17,6 +19,8 @@ router.post(
   ],
   crearEmpresa
 );
+
+//router.post('/', autenticar, validarJoi(empresaSchema), crearEmpresa);
 router.put(
   '/:id',
   autenticar,
