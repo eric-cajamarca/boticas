@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import rateLimit from 'express-rate-limit';
+import { generalLimiter, loginLimiter } from './middlewares/rateLimiter.js';
 import { connectDB } from './config/db.js';
 import authRoutes from './routes/auth.routes.js';
 import { errorHandler } from './middlewares/error.js';
@@ -17,25 +17,36 @@ import ventaRoutes from './routes/venta.routes.js';
 import clienteRoutes from './routes/cliente.routes.js';
 import proveedorRoutes from './routes/proveedor.routes.js';
 import reportesRoutes  from './routes/reportes.routes.js';
+import cajaRoutes from './routes/caja.routes.js';
 
 dotenv.config();
 await connectDB();                 // conecta SQL Server
 
 const app = express();
 app.use(helmet());
+// CORS restrictiva
+const allowedOrigins = [
+  'http://localhost:5173',      // dev
+  'https://mi-dominio.com'      // prod
+];
 app.use(cors({
-  origin: process.env.FRONT_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Origen no permitido'));
+    }
+  },
   credentials: true
 }));
+// Middleware
+// app.use(express.urlencoded({ extended: true })); // para formularios
 app.use(express.json());
 app.use(cookieParser());
 
-// Rate-limit global
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 min
-  max: 200
-});
-app.use(limiter);
+// Rate-limit
+app.use(generalLimiter);                 // afecta a TODAS las rutas
+app.use('/api/auth/login', loginLimiter); // solo a login
 
 // Rutas
 app.use('/api/auth', authRoutes);
@@ -49,6 +60,7 @@ app.use('/api/admin/ventas', ventaRoutes);
 app.use('/api/admin/proveedores', proveedorRoutes);
 app.use('/api/admin/clientes',    clienteRoutes);
 app.use('/api/reports', reportesRoutes);
+app.use('/api/admin/caja', cajaRoutes);
 // app.get('/api/empresas/ping', (_req, res) => {
 //   console.log('>>> /api/empresas/ping fue llamado');
 //   res.json({ ping: 'ok' });

@@ -7,11 +7,11 @@ export const cuentasPagar = async (req, res, next) => {
     const r = await pool.request()
       .input('idE', sql.Int, idEmpresa)
       .query(`
-        SELECT c.idCuentaPorPagar, v.SerieNumero, c.MontoTotal, c.SaldoActual,
-               cli.RazonSocial, c.FechaVencimiento
+        SELECT c.idCuentaPorPagar, comp.SerieNumero, c.MontoTotal, c.SaldoActual,
+               pro.RazonSocial, c.FechaVencimiento
         FROM CuentasPorPagar c
-        JOIN Ventas v ON c.idVenta = v.idVenta
-        JOIN Clientes cli ON v.idCliente = cli.idCliente
+        JOIN Compras comp ON c.idCompra = comp.idCompra
+        JOIN Proveedores pro ON comp.idProveedor = pro.idProveedor
         WHERE c.idEmpresa = @idE AND c.SaldoActual > 0
         ORDER BY c.FechaVencimiento
       `);
