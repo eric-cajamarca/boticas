@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import { pool } from '../config/db.js';
 import jwt from 'jsonwebtoken';
 import { hashPassword } from '../utils/hash.js';
+import { comparePassword } from '../utils/hash.js';
 
 export async function registro(req, res, next) {
   try {
@@ -55,72 +56,76 @@ export async function loginSuper(req, res, next) {
       secure: process.env.NODE_ENV !== 'development',
       sameSite: 'strict',
       maxAge: 7 * 24 * 60 * 60 * 1000
-    }).json({ message: 'Login super-admin OK' });
+    }).json({ message: 'Bien venido ...' });
   } catch (err) {
     next(err);
   }
 }
 
-
+//quiero crear un metodo para cerrar sesión del super usuario
+export async function logoutSuper(req, res) {
+  console.log('Cerrando sesión del super usuario');
+  res.clearCookie('token').json({ message: 'Sesión cerrada' });
+}
 // src/controllers/auth.controller.js
 
 
-export async function crearCuenta(req, res, next) {
-  const {
-    tipoDocumento, numeroDocumento, nombres, apellidos, correo, idPuesto,
-    usuario, contrasena, permisos
-  } = req.body;
+// export async function crearCuenta(req, res, next) {
+//   const {
+//     tipoDocumento, numeroDocumento, nombres, apellidos, correo, idPuesto,
+//     usuario, contrasena, permisos
+//   } = req.body;
 
-  const transaction = new sql.Transaction(pool);
-  try {
-    await transaction.begin();
+//   const transaction = new sql.Transaction(pool);
+//   try {
+//     await transaction.begin();
 
-    // 1. Insertar Empleado
-    const empResult = await transaction.request()
-      .input('tipoDoc', sql.Char(2), tipoDocumento)
-      .input('numDoc', sql.VarChar(12), numeroDocumento)
-      .input('nombres', sql.VarChar(50), nombres)
-      .input('apellidos', sql.VarChar(100), apellidos)
-      .input('correo', sql.VarChar(100), correo)
-      .input('idPuesto', sql.Int, idPuesto)
-      .query(`INSERT INTO Empleados (TipoDocumento, NumeroDocumento, Nombres, Apellidos, Correo, idPuesto, FechaIngreso)
-              OUTPUT INSERTED.idEmpleado
-              VALUES (@tipoDoc, @numDoc, @nombres, @apellidos, @correo, @idPuesto, GETDATE())`);
+//     // 1. Insertar Empleado
+//     const empResult = await transaction.request()
+//       .input('tipoDoc', sql.Char(2), tipoDocumento)
+//       .input('numDoc', sql.VarChar(12), numeroDocumento)
+//       .input('nombres', sql.VarChar(50), nombres)
+//       .input('apellidos', sql.VarChar(100), apellidos)
+//       .input('correo', sql.VarChar(100), correo)
+//       .input('idPuesto', sql.Int, idPuesto)
+//       .query(`INSERT INTO Empleados (TipoDocumento, NumeroDocumento, Nombres, Apellidos, Correo, idPuesto, FechaIngreso)
+//               OUTPUT INSERTED.idEmpleado
+//               VALUES (@tipoDoc, @numDoc, @nombres, @apellidos, @correo, @idPuesto, GETDATE())`);
 
-    const idEmpleado = empResult.recordset[0].idEmpleado;
+//     const idEmpleado = empResult.recordset[0].idEmpleado;
 
-    // 2. Hash + Salt
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hash = await bcrypt.hash(contrasena, salt);
+//     // 2. Hash + Salt
+//     const saltRounds = 10;
+//     const salt = await bcrypt.genSalt(saltRounds);
+//     const hash = await bcrypt.hash(contrasena, salt);
 
-    // 3. Insertar Usuario
-    const usrResult = await transaction.request()
-      .input('idEmp', sql.Int, idEmpleado)
-      .input('usr', sql.VarChar(20), usuario)
-      .input('hash', sql.VarChar(128), hash)
-      .input('salt', sql.VarChar(50), salt)
-      .query(`INSERT INTO Usuarios (idEmpleado, Usuario, ContrasenaHash, Salt)
-              OUTPUT INSERTED.idUsuario
-              VALUES (@idEmp, @usr, @hash, @salt)`);
+//     // 3. Insertar Usuario
+//     const usrResult = await transaction.request()
+//       .input('idEmp', sql.Int, idEmpleado)
+//       .input('usr', sql.VarChar(20), usuario)
+//       .input('hash', sql.VarChar(128), hash)
+//       .input('salt', sql.VarChar(50), salt)
+//       .query(`INSERT INTO Usuarios (idEmpleado, Usuario, ContrasenaHash, Salt)
+//               OUTPUT INSERTED.idUsuario
+//               VALUES (@idEmp, @usr, @hash, @salt)`);
 
-    const idUsuario = usrResult.recordset[0].idUsuario;
+//     const idUsuario = usrResult.recordset[0].idUsuario;
 
-    // 4. Insertar permisos
-    for (const idPermiso of permisos) {
-      await transaction.request()
-        .input('idUsr', sql.Int, idUsuario)
-        .input('idPer', sql.Int, idPermiso)
-        .query(`INSERT INTO UsuarioPermisos (idUsuario, idPermiso, AsignadoPor)
-                VALUES (@idUsr, @idPer, @idUsr)`);
-    }
+//     // 4. Insertar permisos
+//     for (const idPermiso of permisos) {
+//       await transaction.request()
+//         .input('idUsr', sql.Int, idUsuario)
+//         .input('idPer', sql.Int, idPermiso)
+//         .query(`INSERT INTO UsuarioPermisos (idUsuario, idPermiso, AsignadoPor)
+//                 VALUES (@idUsr, @idPer, @idUsr)`);
+//     }
 
-    await transaction.commit();
-    res.status(201).json({ message: 'Cuenta creada', idUsuario });
-  } catch (err) {
-    await transaction.rollback();
-    next(err);
-  }
+//     await transaction.commit();
+//     res.status(201).json({ message: 'Cuenta creada', idUsuario });
+//   } catch (err) {
+//     await transaction.rollback();
+//     next(err);
+//   }
 
-  
-}
+
+// }

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
-import { registro, loginSuper } from '../controllers/auth.controller.js';
+import { registro, loginSuper, logoutSuper } from '../controllers/auth.controller.js';
 import { validar } from '../utils/validar.js';
 
 const router = Router();
@@ -26,6 +26,7 @@ router.post(
 // );
 
 router.post('/login/super', body('email').isEmail(), body('password').notEmpty(), validar, loginSuper);
+router.post('/logout', logoutSuper);
 
 
   
