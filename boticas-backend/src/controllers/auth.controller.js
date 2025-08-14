@@ -6,6 +6,7 @@ import { pool } from '../config/db.js';
 import jwt from 'jsonwebtoken';
 import { hashPassword } from '../utils/hash.js';
 import { comparePassword } from '../utils/hash.js';
+import { logger } from '../utils/logger.js';
 
 export async function registro(req, res, next) {
   try {
@@ -17,13 +18,15 @@ export async function registro(req, res, next) {
       .input('email', email)
       .input('hash', hashed)
       .query('INSERT INTO superUser (email, password_hash) VALUES (@email, @hash)');
-
+    logger.info(`Nuevo super usuario registrado: ${email}`);
     res.status(201).json({ message: 'Super usuario creado' });
+
   } catch (err) {
     if (err.number === 2627) {  // violación de PK
       err.status = 409;
       err.message = 'El usuario ya existe';
     }
+    logger.error('Error en registro de super usuario', err);
     next(err);
   }
 }
@@ -39,11 +42,11 @@ export async function loginSuper(req, res, next) {
     const user = result.recordset[0];
 
     if (!user || !(await comparePassword(password, user.password_hash))) {
+      //logger.warn(`Intento de login fallido para: ${email}`);
+      logger.warn(`Intento de login fallido para: ${email} con password: ${password}`);
     return res.status(401).json({ message: 'Credenciales inválidas' });
     }
-    // if (!user || !(await bcrypt.compare(password, user.password_hash))) {
-    //   return res.status(401).json({ message: 'Credenciales inválidas' });
-    // }
+    
 
     const token = jwt.sign(
       { id: user.id, email, rol: 'admin' },
@@ -51,13 +54,17 @@ export async function loginSuper(req, res, next) {
       { expiresIn: '7d' }
     );
 
+    logger.info(`Login exitoso para: ${email}`);
+
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== 'development',
       sameSite: 'strict',
       maxAge: 7 * 24 * 60 * 60 * 1000
     }).json({ message: 'Bien venido ...' });
+
   } catch (err) {
+    logger.error(`Login fallido: ${req.body.email}`, err);
     next(err);
   }
 }
