@@ -1,0 +1,39 @@
+name: boticas-backend
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: boticas-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${DB_PASS}"
+      MSSQL_PID: "Express"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlvolume:/var/opt/mssql
+      - ./scripts:/scripts  # opcional, por si quieres ver el archivo dentro del contenedor
+
+  api:
+    build: .
+    container_name: boticas-api
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      JWT_SECRET: ${JWT_SECRET}
+      DB_HOST: db
+      DB_PORT: 1433
+      DB_NAME: BdBotica
+      DB_USER: sa
+      DB_PASS: ${DB_PASS}
+      FRONT_URL: http://localhost:5173
+    depends_on:
+      - db                 # ya no usamos "service_healthy"
+    volumes:
+      - ./logs:/app/logs
+      - ./scripts:/app/scripts   # <-- importante para ejecutar init.sql desde api
+
+volumes:
+  sqlvolume:
