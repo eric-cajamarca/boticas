@@ -26,7 +26,7 @@ const app = express();
 app.use(helmet());
 // CORS restrictiva
 const allowedOrigins = [
-  'http://localhost:5173',      // dev
+  'http://localhost:4300',      // dev
   'https://mi-dominio.com'      // prod
 ];
 app.use(cors({
