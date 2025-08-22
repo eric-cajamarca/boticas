@@ -1,1 +1,7 @@
-<p>empresas works!</p>
+<app-navbar (toggleSidebar)="isSidebarOpen = !isSidebarOpen"></app-navbar>
+
+<app-sidebar [class.sidebar--open]="isSidebarOpen"></app-sidebar>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

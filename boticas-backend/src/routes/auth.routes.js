@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import { registro, loginSuper, logoutSuper } from '../controllers/auth.controller.js';
 import { validar } from '../utils/validar.js';
+import { autenticar } from '../middlewares/auth.js';
 
 const router = Router();
 
@@ -28,6 +29,9 @@ router.post(
 router.post('/login/super', body('email').isEmail(), body('password').notEmpty(), validar, loginSuper);
 router.post('/logout', logoutSuper);
 
-
+// GET /api/auth/me  → devuelve datos del usuario autenticado
+router.get('/me', autenticar, (req, res) => {
+  res.json({ email: req.usuario.email });   // req.user viene del middleware
+});
   
 export default router;

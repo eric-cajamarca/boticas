@@ -1,0 +1,15 @@
+<nav class="navbar">
+  <button class="navbar__toggle" (click)="toggleSidebar.emit()">
+  ☰
+  </button>
+  <a class="navbar__brand" routerLink="/">Mi Aplicación</a>
+
+  <div class="navbar__user" *ngIf="currentUser() as user">
+    <span class="navbar__user__avatar">{{ userInitial() }}</span>
+    <span class="navbar__user__email">{{ user.email }}</span>
+  </div>
+
+  <a class="navbar__user__login" routerLink="/login" *ngIf="!currentUser()">
+    Iniciar sesión
+  </a>
+</nav>

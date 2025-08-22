@@ -8,8 +8,10 @@ const config = {
   server: process.env.DB_HOST,
   port: Number(process.env.DB_PORT || 1433),
   database: process.env.DB_NAME,
-  options: { encrypt: true, trustServerCertificate: true },
-  pool: { max: 10, min: 0 },
+  options: { encrypt: false,
+             trustServerCertificate: true 
+          },
+  // pool: { max: 10, min: 0 },
 };
 
 export let pool;

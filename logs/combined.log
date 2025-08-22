@@ -1,2 +1,8 @@
 {"level":"warn","message":"Intento de login fallido para: admin@boticas.com con password: 123123","timestamp":"2025-08-18T05:08:33.514Z"}
 {"level":"info","message":"Login exitoso para: admin@botica.com","timestamp":"2025-08-18T05:09:11.984Z"}
+{"level":"warn","message":"Intento de login fallido para: admin@botica.com con password: 123456","timestamp":"2025-08-19T02:34:26.472Z"}
+{"level":"info","message":"Login exitoso para: admin@botica.com","timestamp":"2025-08-19T02:34:57.217Z"}
+{"level":"info","message":"Login exitoso para: admin@botica.com","timestamp":"2025-08-19T02:39:24.579Z"}
+{"level":"info","message":"Login exitoso para: admin@botica.com","timestamp":"2025-08-19T02:40:41.588Z"}
+{"level":"info","message":"Login exitoso para: admin@botica.com","timestamp":"2025-08-19T02:41:59.353Z"}
+{"level":"info","message":"Login exitoso para: admin@botica.com","timestamp":"2025-08-19T03:06:30.100Z"}

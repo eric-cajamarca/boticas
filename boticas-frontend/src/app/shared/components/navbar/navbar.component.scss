@@ -1,0 +1,88 @@
+// src/app/shared/components/navbar/navbar.component.scss
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+$primary-color: #3b82f6;
+$text-color: #1f2937;
+$bg-color: #ffffff;
+$border-color: #e5e7eb;
+$hover-bg: #f3f4f6;
+$shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  z-index: 1001; // por encima del sidebar
+
+  &__brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $primary-color;
+    text-decoration: none;
+    letter-spacing: 1px;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    &__avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: $primary-color;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    &__email {
+      font-size: 0.875rem;
+      color: $text-color;
+    }
+
+    &__login {
+      font-size: 0.875rem;
+      color: $primary-color;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+
+      &:hover {
+        color: darken($primary-color, 10%);
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 600px) {
+  .navbar {
+    padding: 1rem;
+
+    &__brand {
+      font-size: 1.25rem;
+    }
+
+    &__user {
+      &__email {
+        display: none;
+      }
+    }
+  }
+}
+
