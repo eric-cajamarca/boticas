@@ -1,0 +1,1303 @@
+{
+	"info": {
+		"_postman_id": "c2adf60a-bfb0-4454-a476-b20166e322fd",
+		"name": "boticas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22126935"
+	},
+	"item": [
+		{
+			"name": " http://localhost:4000/api/auth/registro",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@botica.com\",\r\n  \"password\": \"123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/auth/registro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						"registro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/auth/login/super",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"email\": \"admin@botica.com\",\r\n    \"password\": \"123\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/auth/login/super",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						"login",
+						"super"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/empresas",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBib3RpY2EuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NTQ1ODQ4MTIsImV4cCI6MTc1NTE4OTYxMn0.N1uf8UdxETIfGPM2CoI2UfUWBShJMZ8ba8JL9CANWfw\n",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"ruc\": \"20123000022\",\r\n  \"razonSocial\": \"Botica bussiness3\",\r\n  \"rubro\": \"Farmacéutico\",\r\n  \"direccion\": \"Av. Siempre Viva 123\",\r\n  \"distrito\": \"Lima\",\r\n  \"region\": \"Lima\",\r\n  \"provincia\": \"Lima\",\r\n  \"celular\": \"987654321\",\r\n  \"correo\": \"boticabusiness@botica.com\",\r\n  \"alias\": \"BoticaCentral\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/empresas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"empresas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/admin/empleados",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBib3RpY2EuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NTQ1ODQ4MTIsImV4cCI6MTc1NTE4OTYxMn0.N1uf8UdxETIfGPM2CoI2UfUWBShJMZ8ba8JL9CANWfw\n",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tipoDocumento\": \"01\",\r\n  \"numeroDocumento\": \"87654321\",\r\n  \"nombres\": \"Ana\",\r\n  \"apellidos\": \"Torres García\",\r\n  \"correo\": \"ana@boticacentral.com\",\r\n  \"idPuesto\": 3,\r\n  \"usuario\": \"ana.torres\",   // ← cambiado\r\n  \"contrasena\": \"Admin456!\",\r\n  \"permisos\": [1]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/empleados",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"empleados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/admin/empleados/6",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "ty",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"nombres\":\"Ana María\", \"apellidos\":\"Torres\", \"correo\":\"nuevo@mail.com\", \"idPuesto\":3 }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/empleados/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"empleados",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/admin/empleados/1",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/empleados/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"empleados",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/empresas/3/disable",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"activo\": false }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/empresas/3/disable",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"empresas",
+						"3",
+						"disable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/empresas/3",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"razonSocial\": \"Botica Central UPD\", \"rubro\": \"Farmacia & Bienestar\" }"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/empresas/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"empresas",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/api/empresas/3",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/api/empresas/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"empresas",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "agregar marcas",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"n\": \"Bayer\",\r\n  \"p\": \"Alemania\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/marcas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"marcas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ditar marcas",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"n\": \"Bayer\",\r\n  \"p\": \"Alemania\",\r\n  \"ef\":\"1\",\r\n  \"sw\":\"bayer@gmail.com\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/marcas/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"marcas",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear laboratorios",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"n\": \"Laboratorios far S.A.\",\r\n  \"r\":\"20603181680\",\r\n  \"d\":\"Av. los lirios\",\r\n  \"pa\": \"Colombia\",\r\n  \"c\": \"Angela\",\r\n  \"tel\":\"123456789\",\r\n  \"ef\": 1\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/laboratorios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"laboratorios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editar laboratorios",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"n\": \"Laboratorios far S.A.\",\r\n  \"r\":\"20603181680\",\r\n  \"d\":\"Av. los jardines\",\r\n  \"pa\": \"Colombia\",\r\n  \"c\": \"Angel\",\r\n  \"tel\":\"123456789\",\r\n  \"ef\": 1\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/laboratorios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"laboratorios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear presentaciones",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"c\": \"U2\",\r\n  \"d\": \"Tableta/Blister\",\r\n  \"m\": 1,\r\n  \"u\": \"mg\",\r\n  \"rc\":\"0\",\r\n  \"ed\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/presentaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"presentaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "editar presentaciones",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"c\": \"cen\",\r\n  \"d\": \"Blister\",\r\n  \"m\": 1,\r\n  \"u\": \"mg\",\r\n  \"rc\":\"0\",\r\n  \"ed\": \"1\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/presentaciones/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"presentaciones",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear categorias",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"d\":\"Analgesico\",\r\n      \"t\":\"gotas\",\r\n      \"may\": 0,\r\n      \"cli\":0,\r\n      \"tra\":0,\r\n      \"reqr\":1,\r\n      \"cont\":1\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/categorias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"categorias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear pincipio activo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Transfer-Encoding",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"n\":\"Ibuprofeno\",\r\n    \"c\":\"200mg\",\r\n    \"desc\":\"Escalofrios\",\r\n    \"cont\":\"fiebre\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/principios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"principios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear viadeAdministracion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"c\":\"ORAL2\", \"d\":\"Vía Oral3\", \"i\":\"Tomar con agua3\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/vias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"vias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear productos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idEmpresa\": 1,\r\n  \"codigo\": \"PAR501\",\r\n  \"codigoBarras\":\"123456789012\",\r\n  \"nombre\": \"Paracetamol far 500 mg\",\r\n  \"descripcion\": \"Analgésico\",\r\n  \"idCategoria\": 1,\r\n  \"idPresentacion\": 15,\r\n  \"idMarca\": 1,\r\n  \"idLaboratorio\": 1,\r\n  \"idPrincipio\": 1,\r\n  \"idVia\": 1,\r\n  \"precioCompra\": 0.50,\r\n  \"precioVenta\": 1.20,\r\n  \"stockMin\": 100,\r\n  \"stockMax\": 1000,\r\n  \"concentracion\": \"500 mg/tableta\",\r\n  \"forma\": \"Tableta\",\r\n  \"registroSanitario\": \"12345-DIGEMID\",\r\n  \"digemid\":\"Aprobado\",\r\n  \"requiereReceta\": false,\r\n  \"controlado\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/productos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear ubicaciones",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"codigo\": \"A2\",\r\n  \"descripcion\": \"Andamio A2 - Fila superior\",\r\n  \"idEmpresa\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/ubicaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"ubicaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear lotes e inventarios",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idProducto\": 1,\r\n  \"numeroLote\": \"LOT20240609\",\r\n  \"fechaFabricacion\": \"2024-03-01\",\r\n  \"fechaVencimiento\": \"2026-03-01\",\r\n  \"cantidad\": 200,\r\n  \"tipo\":\"I\",\r\n  \"estado\":\"Descartado\",\r\n  \"idUbicacion\": 1,\r\n  \"observaciones\": \"noveno ingreso\",\r\n  \"referencia\":\"si\",\r\n  \"idOrigen\":1,\r\n  \"tipoOrigen\":\"venta\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/lotes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"lotes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear compras, detalle, lote, inventario",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idEmpresa\": 1,\r\n  \"tipoDocumento\": \"01\",\r\n  \"serie\": \"F002\",\r\n  \"numero\": \"000128\",\r\n  \"fechaEmision\": \"2024-06-01\",\r\n  \"fechaVencimiento\": \"2024-06-30\",\r\n  \"idProveedor\": 1,\r\n  \"idMoneda\": 1,\r\n  \"idCondicionPago\":2,\r\n  \"tipoCambio\": 1.0,\r\n  \"subTotal\": 1000,\r\n  \"descuentoGlobal\":0,\r\n  \"igv\": 180,\r\n  \"isc\":0,\r\n  \"trosCargos\":0,\r\n  \"total\": 1180,\r\n  \"observaciones\":\"la primera compra\",\r\n  \"detalle\": [\r\n    {\r\n      \"idProducto\": null,               // null → crear\r\n      \"codigo\": \"NUEVO002\",\r\n      \"nombre\": \"Aspirina Genfar\",\r\n      \"idCategoria\":1,\r\n      \"idPresentacion\":1,\r\n      \"cantidad\": 200,\r\n      \"precioUnitario\": 10,\r\n      \"precioVenta\":15,\r\n      \"descuento\": 0,\r\n      \"igv\":18,\r\n      \"isc\":0,\r\n      \"total\":1000,\r\n       \"numeroLote\": \"LOT202406035\",\r\n      \"fechaVencimiento\": \"2026-06-01\",\r\n      \"idUbicacion\": 1\r\n     \r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/compras",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"compras"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "anular compra y restar inventario y lote",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/api/admin/compras/16/anular",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"compras",
+						"16",
+						"anular"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear venta",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idEmpresa\": 1,\r\n  \"tipoComprobante\": \"03\",\r\n  \"fechaEmision\": \"2024-06-10\",\r\n  \"fechaVencimiento\": \"2024-06-10\",\r\n  \"idCliente\": 4,\r\n  \"idMoneda\": 1,\r\n  \"idCondicionPago\": 2,\r\n  \"tipoCambio\": 1,\r\n  \"subTotal\": 100,\r\n  \"igv\": 18,\r\n  \"total\": 118,\r\n  \"detalle\": [\r\n    {\r\n      \"idProducto\": 1,\r\n      \"idLote\": 1,\r\n      \"cantidad\": 5,\r\n      \"precioUnitario\": 20,\r\n      \"descuento\": 0,\r\n      \"igv\":0,\r\n      \"isc\":0,\r\n      \"total\":100,\r\n      \"idUbicacion\": 1\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/ventas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"ventas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear proveedores",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tipoDocumento\": \"06\",\r\n  \"numeroDocumento\": \"20123456200\",\r\n  \"razonSocial\": \"Lab2oratorios S.A.C\",\r\n  \"NombreComercial\": \"Lucar S.A.\",\r\n  \"direccion\": \"av sin numero\",\r\n  \"ubigeo\": \"060801\",\r\n  \"distrito\":\"Jaen\",\r\n  \"provincia\":\"jaen\",\r\n  \"departamento\":\"Cajamarca\",\r\n  \"Telefono\": \"123456789\",\r\n  \"Celular\": \"993289440\",\r\n  \"correo\": \"ventas@genfar.com\",\r\n  \"tipoProveedor\": \"Farmacéutica\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/proveedores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"proveedores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear clientes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"tipoDocumento\": \"01\",\r\n  \"numeroDocumento\": \"12345670\",\r\n  \"razonSocial\": \"Juan Pérez\",\r\n  \"NombreComercial\": \"Lucar S.A.\",\r\n  \"direccion\": \"av sin numero\",\r\n  \"ubigeo\": \"060801\",\r\n  \"distrito\":\"Jaen\",\r\n  \"provincia\":\"jaen\",\r\n  \"departamento\":\"Cajamarca\",\r\n  \"Telefono\": \"123456789\",\r\n  \"Celular\": \"993289440\",\r\n  \"correo\": \"juan@mail.com\",\r\n  \"tipoSeguro\": \"SIS\",\r\n  \"numeroAfiliacion\": \"1242544546546\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ventas por rango de fechas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idEmpresa\": 1,\r\n  \"tipoComprobante\": \"03\",\r\n  \"fechaEmision\": \"2024-06-10\",\r\n  \"fechaVencimiento\": \"2024-06-10\",\r\n  \"idCliente\": 4,\r\n  \"idMoneda\": 1,\r\n  \"idCondicionPago\": 2,\r\n  \"tipoCambio\": 1,\r\n  \"subTotal\": 100,\r\n  \"igv\": 18,\r\n  \"total\": 118,\r\n  \"detalle\": [\r\n    {\r\n      \"idProducto\": 1,\r\n      \"idLote\": 1,\r\n      \"cantidad\": 5,\r\n      \"precioUnitario\": 20,\r\n      \"descuento\": 0,\r\n      \"igv\":0,\r\n      \"isc\":0,\r\n      \"total\":100,\r\n      \"idUbicacion\": 1\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/reports/ventas?idEmpresa=1&desde=2024-06-01&hasta=2024-08-09",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"reports",
+						"ventas"
+					],
+					"query": [
+						{
+							"key": "idEmpresa",
+							"value": "1"
+						},
+						{
+							"key": "desde",
+							"value": "2024-06-01"
+						},
+						{
+							"key": "hasta",
+							"value": "2024-08-09"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lotes proximos a vencer",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/api/reports/lotes/vencimiento?dias=30",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"reports",
+						"lotes",
+						"vencimiento"
+					],
+					"query": [
+						{
+							"key": "dias",
+							"value": "30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reporte cuentas x cobrar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/reports/cuentas/cobrar?idEmpresa=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"reports",
+						"cuentas",
+						"cobrar"
+					],
+					"query": [
+						{
+							"key": "idEmpresa",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reporte ctas por pagar",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/api/reports/cuentas/pagar?idEmpresa=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"reports",
+						"cuentas",
+						"pagar"
+					],
+					"query": [
+						{
+							"key": "idEmpresa",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reporte stock",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/api/reports/stock?idEmpresa=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"reports",
+						"stock"
+					],
+					"query": [
+						{
+							"key": "idEmpresa",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear caja",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"codigo\": \"C001\",\r\n  \"descripcion\": \"Caja Principal\",\r\n  \"idEmpresa\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/caja/cajas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"caja",
+						"cajas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "abrir caja",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idEmpresa\": 1,\r\n  \"idCaja\": 1,\r\n  \"saldoInicial\": 500.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/caja/apertura",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"caja",
+						"apertura"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registrar movimientos caja",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"idApertura\": 1,\r\n  \"tipo\": \"I\",\r\n  \"concepto\": \"Venta B001-000123\",\r\n  \"monto\": 120.00,\r\n  \"moneda\": \"PEN\",\r\n  \"referencia\": \"B001-000123\",\r\n  \"idOrigen\": 1,\r\n  \"tipoOrigen\": \"VENTA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/admin/caja/movimiento",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"caja",
+						"movimiento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cierre caja",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/admin/caja/1/cierre",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"caja",
+						"1",
+						"cierre"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reporte flujos caja ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/admin/caja/flujo?idApertura=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"admin",
+						"caja",
+						"flujo"
+					],
+					"query": [
+						{
+							"key": "idApertura",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cerrar sesion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/api/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verificar backend",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/api/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,3 +1,4 @@
+// src/app/shared/models/empresa.model.ts
 export interface Empresa {
   id?: number;
   ruc: string;
@@ -10,4 +11,5 @@ export interface Empresa {
   celular: string;
   correo: string;
   alias: string;
+  activo?: boolean;
 }

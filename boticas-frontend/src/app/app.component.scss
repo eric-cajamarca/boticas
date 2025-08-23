@@ -1,0 +1,22 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  &__body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  &__content {
+    flex: 1 1 auto;
+    padding: 1rem;
+    transition: margin-left 0.3s ease;
+    overflow-y: auto;
+
+    &--shifted {
+      margin-left: 250px; // ancho del sidebar
+    }
+  }
+}

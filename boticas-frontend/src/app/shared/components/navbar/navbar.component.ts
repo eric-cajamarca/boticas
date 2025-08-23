@@ -24,6 +24,5 @@ export class NavbarComponent {
     return user?.email ? user.email.charAt(0).toUpperCase() : '';
   });
 
-  @Output() toggleSidebar = new EventEmitter<void>();
 }
 

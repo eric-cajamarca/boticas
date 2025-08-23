@@ -6,4 +6,11 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'empresas',component: EmpresasComponent },
+    {
+    path: 'admin/empresas',
+    children: [
+        { path: '', component: EmpresasComponent },
+
+    ]
+    }
 ];

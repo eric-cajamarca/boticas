@@ -1,13 +1,20 @@
-<aside class="sidebar" [class.sidebar--open]="true">
-  <nav class="sidebar__nav">
+<!-- Botón flotante -->
+<button class="sidebar__toggle" (click)="toggle()">
+  {{ isOpen ? '✕' : '☰' }}
+</button>
+
+<!-- Panel lateral -->
+<aside class="sidebar__panel" [class.sidebar__panel--open]="isOpen">
+  <nav class="sidebar__panel__nav">
     <a
       *ngFor="let item of menuItems"
-      class="sidebar__link"
+      class="sidebar__panel__link"
       [routerLink]="item.route"
-      routerLinkActive="sidebar__link--active"
+      routerLinkActive="sidebar__panel__link--active"
+      (click)="toggle()"
     >
-      <span class="sidebar__icon">{{ item.icon }}</span>
-      <span class="sidebar__label">{{ item.label }}</span>
+      <span class="sidebar__panel__icon">{{ item.icon }}</span>
+      <span class="sidebar__panel__label">{{ item.label }}</span>
     </a>
   </nav>
 </aside>

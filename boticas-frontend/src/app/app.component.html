@@ -1,1 +1,12 @@
-<router-outlet />
+<div class="layout">
+  <app-navbar></app-navbar>
+
+  <div class="layout__body">
+    <!-- Sidebar emite el evento cuando cambia -->
+    <app-sidebar (toggleSidebar)="sidebarOpen = !sidebarOpen"></app-sidebar>
+
+    <main class="layout__content" [class.layout__content--shifted]="sidebarOpen">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

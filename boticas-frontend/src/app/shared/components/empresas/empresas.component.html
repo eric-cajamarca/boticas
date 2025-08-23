@@ -1,7 +1,32 @@
-<app-navbar (toggleSidebar)="isSidebarOpen = !isSidebarOpen"></app-navbar>
+<main class="container" style="background-color: red;">
+  <header>
+    <h2>Gestión de Empresas</h2>
+    <button class="btn primary" routerLink="/admin/empresas/nuevo">➕ Nueva Empresa</button>
+  </header>
 
-<app-sidebar [class.sidebar--open]="isSidebarOpen"></app-sidebar>
-
-<main class="main-content">
-  <router-outlet></router-outlet>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th><th>RUC</th><th>Razón Social</th><th>Correo</th><th>Estado</th><th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of empresas">
+        <td>{{ e.id }}</td>
+        <td>{{ e.ruc }}</td>
+        <td>{{ e.razonSocial }}</td>
+        <td>{{ e.correo }}</td>
+        <td>
+          <span class="badge" [class.active]="e.activo">{{ e.activo ? 'Activo' : 'Inactivo' }}</span>
+        </td>
+        <td>
+          <!-- <button class="btn small" [routerLink]="['/admin/empresas', e.id]">✏️ Editar</button>
+          <button class="btn small danger" (click)="eliminar(e.id!)">🗑️ Eliminar</button>
+          <button class="btn small" (click)="toggleActivo(e)">
+            {{ e.activo ? 'Desactivar' : 'Activar' }}
+          </button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </main>

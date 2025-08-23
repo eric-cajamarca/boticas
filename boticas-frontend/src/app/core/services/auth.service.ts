@@ -1,15 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { GlobalService } from './global.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  
+  public apiUrl :any;
 
-  public apiUrl = 'http://localhost:4000/api/auth';
-
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private global: GlobalService
+  ) {
+    this.apiUrl = `${this.global.apiUrl}/auth`;
+  }
 
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/login/super`, credentials, { withCredentials: true });
