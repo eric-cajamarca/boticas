@@ -30,13 +30,13 @@ const allowedOrigins = [
   'https://mi-dominio.com'      // prod
 ];
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Origen no permitido'));
-    }
-  },
+  // origin: (origin, callback) => {
+  //   if (!origin || allowedOrigins.includes(origin)) {
+  //     callback(null, true);
+  //   } else {
+  //     callback(new Error('Origen no permitido'));
+  //   }
+  // },
   credentials: true
 }));
 // Middleware

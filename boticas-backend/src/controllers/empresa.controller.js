@@ -97,7 +97,18 @@ export async function eliminarEmpresa(req, res, next) {
   }
 }
 
+export async function getEmpresas(req, res, next) {
+  console.log('Listar empresas');
+  try {
+    const result = await pool.request()
+      .query('SELECT * FROM Empresa ORDER BY idEmpresa DESC');
+      console.log(result.recordset);
+    res.status(200).json({ data: result.recordset });
 
+  } catch (err) {
+    next(err);
+  }
+}
 
 
 // import sql from 'mssql';

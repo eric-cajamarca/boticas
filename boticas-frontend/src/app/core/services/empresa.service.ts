@@ -19,9 +19,10 @@ export class EmpresaService {
 
   
   listar(): Observable<Empresa[]> {
-    return this.http.get<Empresa[]>(this.apiUrl, {  withCredentials: true  });
+    console.log(this.apiUrl);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<Empresa[]>(this.apiUrl, { headers, withCredentials: true });
   }
-
   crear(empresa: Empresa): Observable<Empresa> {
     return this.http.post<Empresa>(this.apiUrl, empresa, {  withCredentials: true  });
   }
