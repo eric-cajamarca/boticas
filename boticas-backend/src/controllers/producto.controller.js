@@ -15,8 +15,12 @@ export const listarProductos = async (_req, res, next) => {
       LEFT JOIN Presentaciones pa   ON p.idPresentacion = pa.idPresentacion
       LEFT JOIN ViaAdministracion v ON p.idViaAdministracion = v.idVia
     `);
-    res.json(r.recordset);
-  } catch (err) { next(err); }
+    console.log('lista de productos',r.recordset);
+    res.status(200).send({ data: r.recordset });
+  } catch (err) { 
+    res.status(500).send({ message: 'Error al obtener los productos', data: undefined });
+    next(err); 
+  }
 };
 
 /* ---------- CREAR ---------- */

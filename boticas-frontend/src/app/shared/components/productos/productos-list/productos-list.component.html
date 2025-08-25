@@ -1,0 +1,44 @@
+<p>productos-list works!</p>
+<!-- productos-list.component.html -->
+<div class="p-4">
+  <button mat-raised-button color="primary" (click)="openForm()">Nuevo Producto</button>
+  
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full mt-4">
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef>Código</th>
+      <td mat-cell *matCellDef="let p">{{ p.Codigo }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let p">{{ p.Nombre }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="precioVenta">
+      <th mat-header-cell *matHeaderCellDef>Precio Venta</th>
+      <td mat-cell *matCellDef="let p">{{ p.PrecioVenta | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="stockMin">
+      <th mat-header-cell *matHeaderCellDef>Stock Mín</th>
+      <td mat-cell *matCellDef="let p">{{ p.StockMin }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="stockMax">
+      <th mat-header-cell *matHeaderCellDef>Stock Máx</th>
+      <td mat-cell *matCellDef="let p">{{ p.StockMax }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let p">
+        <button mat-icon-button (click)="openForm(p)"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button (click)="delete(p.id)"><mat-icon>delete</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
