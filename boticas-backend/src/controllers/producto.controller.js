@@ -31,6 +31,7 @@ export const crearProducto = async (req, res, next) => {
     concentracion, forma, registroSanitario, digemid, requiereReceta, controlado
   } = req.body;
 
+  console.log('crearProducto', req.body);
   try {
     const result = await pool.request()
       .input('idEmp', sql.Int, idEmpresa)
@@ -74,36 +75,37 @@ export const crearProducto = async (req, res, next) => {
 
 /* ---------- EDITAR ---------- */
 export const editarProducto = async (req, res, next) => {
+  console.log('editarProducto', req.params.id, req.body);
   const id = Number(req.params.id);
   const {
-    codigo, codigoBarras, nombre, descripcion, idCategoria, idPresentacion, idMarca,
-    idLaboratorio, idPrincipio, idVia, precioCompra, precioVenta, stockMin, stockMax,
-    concentracion, forma, registroSanitario, digemid, requiereReceta, controlado
+    Codigo, CodigoBarras, Nombre, Descripcion, idCategoria, idPresentacion, idMarca,
+    idLaboratorio, idPrincipio, idVia, PrecioCompra, PrecioVenta, StockMin, StockMax,
+    Concentracion, Forma, RegistroSanitario, Digemid, RequiereReceta, Controlado
   } = req.body;
-
+  console.log('id', id);
   try {
     await pool.request()
-      .input('id', sql.Int, id)
-        .input('cod', sql.VarChar(20), codigo)
-        .input('codbarras', sql.VarChar(50), codigoBarras)
-        .input('nom', sql.VarChar(100), nombre)
-        .input('desc', sql.VarChar(255), descripcion)
+        .input('id', sql.Int, id)
+        .input('cod', sql.VarChar(20), Codigo)
+        .input('codbarras', sql.VarChar(50), CodigoBarras)
+        .input('nom', sql.VarChar(100), Nombre)
+        .input('desc', sql.VarChar(255), Descripcion)
         .input('cat', sql.Int, idCategoria)
         .input('pres', sql.Int, idPresentacion)
         .input('mar', sql.Int, idMarca)
         .input('lab', sql.Int, idLaboratorio)
         .input('prin', sql.Int, idPrincipio)
         .input('via', sql.Int, idVia)
-        .input('pc', sql.Money, precioCompra)
-        .input('pv', sql.Money, precioVenta)
-        .input('min', sql.Int, stockMin)
-        .input('max', sql.Int, stockMax)
-        .input('conc', sql.VarChar(20), concentracion)
-        .input('forma', sql.VarChar(50), forma)
-        .input('rs', sql.VarChar(50), registroSanitario)
-        .input('dig', sql.VarChar(50), digemid)
-        .input('rr', sql.Bit, requiereReceta)
-        .input('ctrl', sql.Bit, controlado)
+        .input('pc', sql.Money, PrecioCompra)
+        .input('pv', sql.Money, PrecioVenta)
+        .input('min', sql.Int, StockMin)
+        .input('max', sql.Int, StockMax)
+        .input('conc', sql.VarChar(20), Concentracion)
+        .input('forma', sql.VarChar(50), Forma)
+        .input('rs', sql.VarChar(50), RegistroSanitario)
+        .input('dig', sql.VarChar(50), Digemid)
+        .input('rr', sql.Bit, RequiereReceta)
+        .input('ctrl', sql.Bit, Controlado)
         .query(`UPDATE Productos SET
                 Codigo = COALESCE(@cod, Codigo),
                 CodigoBarras = COALESCE(@codbarras, CodigoBarras),
@@ -126,13 +128,18 @@ export const editarProducto = async (req, res, next) => {
                 RequiereReceta = COALESCE(@rr, RequiereReceta),
                 Controlado = COALESCE(@ctrl, Controlado)
               WHERE idProducto = @id`);
+      console.log('Producto actualizado', id);
     res.json({ message: 'Producto actualizado' });
-  } catch (err) { next(err); }
+  } catch (err) { 
+    console.log(err);
+    next(err); 
+  }
 };
 
 /* ---------- SOFT DELETE ---------- */
 export const eliminarProducto = async (req, res, next) => {
   const id = Number(req.params.id);
+  console.log('eliminarProducto', id);
   try {
     await pool.request()
       .input('id', sql.Int, id)

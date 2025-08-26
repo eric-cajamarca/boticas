@@ -29,10 +29,12 @@ export class ProductosService {
   }
 
   actualizar(id: number, body: Partial<IProducto>): Observable<IProducto> {
+    console.log('actualizar', id, body);
     return this.api.put<IProducto>(`/admin/productos/${id}`, body);
   }
 
   eliminar(id: number): Observable<void> {
+    console.log('eliminar', id);
     return this.api.delete<void>(`/admin/productos/${id}`);
   }
 }

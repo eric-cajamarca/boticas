@@ -55,14 +55,16 @@ export class ProductosListComponent {
   }
 
   openForm(producto?: IProducto): void {
+    console.log('producto', producto);
     const ref = this.dialog.open(ProductoFormComponent, {
-      width: '600px',
+      width: '700px',
       data: producto,
     });
     ref.afterClosed().subscribe(() => this.load());
   }
 
-  delete(id: number): void {
-    this.svc.eliminar(id).subscribe(() => this.load());
+  delete(idProducto: number): void {
+    console.log('delete', idProducto);
+    this.svc.eliminar(idProducto).subscribe(() => this.load());
   }
 }
